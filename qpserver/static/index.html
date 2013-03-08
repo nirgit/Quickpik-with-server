@@ -1,0 +1,52 @@
+<html>
+<head>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	function jsonCB(result) {
+		console.log(result);
+		if (result !== null && result) {
+			if (result.items.length === 0) {
+				$($("#serverResponses")[0]).append("No results.")
+			} else {
+				for (item in result.items) {
+					var url = result.items[item].media.m;
+					var imgItem = document.createElement('img');
+					imgItem.src = url;
+					$($("#serverResponses")[0]).append("Server response: ")
+							.append(url).append("<br>");
+					$($("#serverResponses")[0]).append(imgItem).append("<br>");
+				}
+			}
+		}
+	}
+</script>
+</head>
+<body>
+
+	<H1>QuickPik Server</H1>
+
+	<h3>Search test that the server works (using with JQuery).</h3>
+
+	<script>
+		function search(event) {
+			// check for the "enter/return" key
+			if (event.keyCode === 13) {
+				send();
+			}
+		}
+
+		function send() {
+			$("#serverResponses").empty();
+			var expression = $("#exp")[0].value;
+			$.getJSON(
+					'http://localhost:8080/qpserver/rest/quickpik/searchPhotos?searchExp='
+							+ expression + '&callback=?', jsonCB);
+		}
+	</script>
+
+	<input id="exp" onkeydown="search(event)" />
+	<button onclick="send()">Search!</button>
+
+	<div id="serverResponses"></div>
+</body>
+</html>

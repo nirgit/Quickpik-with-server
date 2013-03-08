@@ -1,0 +1,54 @@
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'war'
+
+// gradle params
+sourceCompatibility = 1.7
+webAppDirName = 'static' 
+
+/* ====================== DEPENDENCIES ====================== */
+ext {
+	asmVersion='3.1'
+	jacksonVersion='1.9.+'
+	jerseyVersion='1.17.+'
+	jUnitVersion='4.8.+'
+	servletApiVersion='2.5'
+	jettisonVersion='1.1'
+	jaxrsVersion='1.1.1'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	// ================== COMPILIATION ==================
+	compile(
+			[group: 'org.ow2.util.asm',		name: 'asm', 	version: asmVersion],
+			// Jersey
+			[group: 'com.sun.jersey',		name: 'jersey-core', 	version: jerseyVersion],
+			[group: 'com.sun.jersey',		name: 'jersey-client', 	version: jerseyVersion],
+			[group: 'com.sun.jersey',		name: 'jersey-json', 	version: jerseyVersion],
+			[group: 'com.sun.jersey',		name: 'jersey-server', 	version: jerseyVersion],
+			[group: 'com.sun.jersey',		name: 'jersey-servlet', 	version: jerseyVersion],
+			// Jettison
+			[group: 'org.bluestemsoftware.open.maven.tparty',		name: 'jettison', 	version: jettisonVersion],
+			// JAX-RS: Java API for RESTful Web Services
+			[group: 'javax.ws.rs', 		name: 'jsr311-api', 		version: jaxrsVersion],
+			
+			[group: 'org.codehaus.jackson',	name: 'jackson-core-asl', 	version: jacksonVersion],
+			[group: 'org.codehaus.jackson',	name: 'jackson-jaxrs', 	version: jacksonVersion],
+			[group: 'org.codehaus.jackson',	name: 'jackson-mapper-asl', 	version: jacksonVersion],
+			// Servlet API
+			[group: 'javax.servlet', 		name: 'servlet-api', 		version: servletApiVersion]
+			)
+
+	// ================== TESTING ==================
+	testCompile (
+			[group: 'com.sun.jersey',		name: 'jersey-project', 	version: jerseyVersion],
+			[group: 'org.codehaus.jackson',	name: 'jackson-core-lgpl', 	version: jacksonVersion],
+			[group: 'junit', name: 'junit', version: jUnitVersion]
+		)
+}
+

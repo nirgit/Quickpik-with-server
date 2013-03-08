@@ -1,0 +1,17 @@
+{
+  "name": "QuickPik",
+  "manifest_version": 2,
+  "version": "2.0",
+  "icons": { 
+  		"16" : "icons/qpik16.png",
+  		"48" : "icons/qpik48.png",
+  		"128" : "icons/qpik128.png" 
+  		},
+  "description": "Take a quick-peek into the web",
+  "browser_action": {
+    "default_icon": "icons/qpik128.png",
+    "default_popup": "ChromeGWTExt.html"
+  },
+  // A relaxed policy definition which allows script resources to be loaded from localhost:8080 over HTTP
+  "content_security_policy": "script-src 'self' http://localhost:8080; object-src 'self'"
+ }
